@@ -1,0 +1,41 @@
+import sqlite3
+
+
+def create_database():
+    cur.execute('''DROP TABLE IF EXISTS contacts;''')
+    cur.execute('''CREATE TABLE IF NOT EXISTS "contacts" (
+            "contact_id"	INTEGER PRIMARY KEY,
+            "name"	TEXT NOT NULL,
+            "email"	TEXT NOT NULL,
+            "address_id" INTEGER,
+            FOREIGN KEY(address_id) REFERENCES addresses(address_id)
+            );''')
+    cur.execute('''DROP TABLE IF EXISTS addresses;''')
+    cur.execute('''CREATE TABLE IF NOT EXISTS "addresses" (
+            "address_id"	INTEGER PRIMARY KEY,
+            "street"	TEXT NOT NULL,
+            "postal"	TEXT NOT NULL,
+            "city"	TEXT NOT NULL,
+            "phonenumber" TEXT NOT NULL,
+            "message"	TEXT NOT NULL
+            );''')
+
+
+def connect_database():
+    global conn, cur
+
+    # will connect to db 
+    conn = sqlite3.connect('contactform.db')
+
+    cur = conn.cursor()
+
+
+def close_database():
+    conn.commit()
+    conn.close()
+
+
+if __name__ == '__main__':
+    connect_database()
+    create_database()
+    close_database()
