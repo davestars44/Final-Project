@@ -78,7 +78,7 @@ class LoginPage(tk.Frame):
 
 
 class ContactForms(tk.Frame):
-    "view all files"
+    #view all files
     def __init__(self, parent, controller, persist=None):
         tk.Frame.__init__(self, parent)
         self.controller = controller
